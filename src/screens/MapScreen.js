@@ -153,7 +153,8 @@ export default MapScreen = props => {
         ',' +
         region.longitude +
         '&key=' +
-        'AIzaSyCF8BRYo9pIN3E-kPPG7mq-0oFhjnG59a0',
+        // 'AIzaSyCF8BRYo9pIN3E-kPPG7mq-0oFhjnG59a0',
+        'AIzaSyCD6KcxnD-n0CfQniS1TD_MJIE0w_kmeUc',
     )
       .then(response => response.json())
       .then(responseJson => {

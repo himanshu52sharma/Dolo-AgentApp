@@ -127,14 +127,14 @@ export default function AddDoctor({navigation}) {
   let defaultSchedule = [
     {
       day: 'Sunday',
-      start_time: new Date(new Date().setHours(10, 0, 0)),
-      end_time: new Date(new Date().setHours(19, 0, 0)),
+      start_time: new Date(new Date().setHours(10, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      end_time: new Date(new Date().setHours(19, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
       checked: false,
     },
     {
       day: 'Monday',
-      start_time: new Date(new Date().setHours(10, 0, 0)),
-      end_time: new Date(new Date().setHours(19, 0, 0)),
+      start_time: new Date(new Date().setHours(10, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      end_time: new Date(new Date().setHours(19, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
       checked: true,
     },
     {
@@ -152,22 +152,45 @@ export default function AddDoctor({navigation}) {
     {
       day: 'Thursday',
       start_time: new Date(new Date().setHours(10, 0, 0)),
-      end_time: new Date(new Date().setHours(19, 0, 0)),
+      end_time: new Date(new Date().setHours(19, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
       checked: true,
     },
     {
       day: 'Friday',
-      start_time: new Date(new Date().setHours(10, 0, 0)),
-      end_time: new Date(new Date().setHours(19, 0, 0)),
+      start_time: new Date(new Date().setHours(10, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      end_time: new Date(new Date().setHours(19, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
       checked: true,
     },
     {
       day: 'Saturday',
-      start_time: new Date(new Date().setHours(10, 0, 0)),
-      end_time: new Date(new Date().setHours(19, 0, 0)),
+      start_time: new Date(new Date().setHours(10, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+      end_time: new Date(new Date().setHours(19, 0, 0)).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
       checked: true,
     },
   ];
+
+  // const updatedmorningSchedule = morningSchedule.map(item => ({
+  //   ...item,
+  //   start_time: item.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+  //   end_time: item.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
+  // }));
+
+  // const updatedeveningSchedule = eveningSchedule.map(item => ({
+  //   ...item,
+  //   start_time: item.start_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+  //   end_time: item.end_time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })
+  // }));
+
+  // const updateddefaultSchedule = defaultSchedule.map(item => ({
+  //   ...item,
+  //   start_time: item.start_time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }),
+  //   end_time: item.end_time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true })
+  // }));
+  
+  // console.log(updatedSchedule);
+
+  // console.log('defaultSchedule',defaultSchedule);
+
 
   const user = useSelector(state => state.user);
 
@@ -237,7 +260,6 @@ export default function AddDoctor({navigation}) {
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   };
-
   const checkValidations = async() =>{
     if(doctorPic === ''){
       Alert.alert('Error', 'Please select profile pic');
@@ -345,6 +367,7 @@ export default function AddDoctor({navigation}) {
       Alert.alert('Error', 'Please enter clinic location');
       
     }
+    // clinicLocations.length > 0 ? clinicLocations : [clinicLocationText]
 
     else if(Degree === ''){
       Alert.alert('Error', 'Please enter Degree');
@@ -1530,7 +1553,7 @@ export default function AddDoctor({navigation}) {
           ))} */}
 
          <Text style={styles.label}>Morning Schedule</Text>
-          {morningschedule.map((item, index) => (
+          {morningschedule?.map((item, index) => (
             <View
               key={index}
               style={{
@@ -1575,7 +1598,7 @@ export default function AddDoctor({navigation}) {
                     {item.start_time
                       .toLocaleTimeString()
                       .replace(
-                        item.start_time.toLocaleTimeString().slice(-6, -3),
+                        item?.start_time.toLocaleTimeString().slice(-6, -3),
                         '',
                       )}
                   </Text>
@@ -1591,7 +1614,7 @@ export default function AddDoctor({navigation}) {
                 <TouchableOpacity
                   activeOpacity={item.checked ? 0.5 : 1}
                   onPress={() =>
-                    item.checked ? setMorningScheduleEndTime(index) : null
+                    item?.checked ? setMorningScheduleEndTime(index) : null
                   }>
                   <Text
                     style={{
@@ -1612,7 +1635,7 @@ export default function AddDoctor({navigation}) {
           ))}
 
 <Text style={styles.label}>Evening Schedule</Text>
-          {eveningschedule.map((item, index) => (
+          {eveningschedule?.map((item, index) => (
             <View
               key={index}
               style={{
